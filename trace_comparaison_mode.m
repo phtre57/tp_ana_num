@@ -11,7 +11,10 @@ function trace_comparaison_mode(u, Nt, Nx, uexacte)
        u_e(:,i) = uexacte(x_inter, t_inter(i));
     end
     
+    %frame = getframe;
+    %[im,map] = rgb2ind(frame.cdata,256,'nodither');
     
+    figure;
     h = plot(x_inter, u(:,1), '*');
     hold on;
     g = plot(x_inter, u_e(:,1), 'o');
@@ -22,6 +25,10 @@ function trace_comparaison_mode(u, Nt, Nx, uexacte)
         set(g(1),'xdata', x_inter, 'ydata', u_e(:,i));
         drawnow;
         pause(0.05);
+        %frame = getframe;
+        %im(:,:,1,i) = rgb2ind(frame.cdata,map,'nodither');
     end
+    
+    %imwrite(im,map,'test.gif','DelayTime',0,'LoopCount',inf);
     
 end

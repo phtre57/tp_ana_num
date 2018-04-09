@@ -4,8 +4,9 @@ function trace_solution(u, Nt, Nx)
     delta_x = L/(Nx-1);
     x_inter = 0:delta_x:L;
     
+    figure;
     h = plot(x_inter, u(:,1), '*');
-    axis([0 1 -1 1])
+    
     
     for i=2:Nt
         set(h(1),'xdata',x_inter,'ydata',u(:,i));
