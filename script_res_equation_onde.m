@@ -1,6 +1,6 @@
 global T L omega_x alpha coeferr n;
 
-num = 2;
+num = 0;
 
 %section 2c)
 if num == 0
@@ -23,7 +23,7 @@ if num == 0
 
     u_exacte = @(x, t)cos((n*pi/L)*t)*sin((n*pi/L)*x);
 
-    [u, err] = script_res_equation_onde(c, Nt, Nx, theta, f, u0, u1);
+    [u, err] = resout_equation_onde(c, Nt, Nx, theta, f, u0, u1);
 
     %trace_solution(u, Nt, Nx);
 
@@ -41,23 +41,23 @@ if num == 1
     omega_x = pi*n/L;
     coeferr = 0;
     
-    [u, err] = script_res_equation_onde(1, 95, 100, 0, f, u0, u1);
+    [u, err] = resout_equation_onde(1, 95, 100, 0, f, u0, u1);
     trace_solution(u, 95, 100);
     plot(0:L/(95-1):T, err);
     
-    [u, err] = script_res_equation_onde(1, 78, 100, 0.1, f, u0, u1);
+    [u, err] = resout_equation_onde(1, 78, 100, 0.1, f, u0, u1);
     trace_solution(u, 78, 100);
     plot(0:L/(78-1):T, err);
     
-    [u, err] = script_res_equation_onde(1, 70, 100, 0.1, f, u0, u1);
+    [u, err] = resout_equation_onde(1, 70, 100, 0.1, f, u0, u1);
     trace_solution(u, 70, 100);
     plot(0:L/(70-1):T, err);
     
-    [u, err] = script_res_equation_onde(1, 50, 100, 0.5, f, u0, u1);
+    [u, err] = resout_equation_onde(1, 50, 100, 0.5, f, u0, u1);
     trace_solution(u, 50, 100);
     plot(0:L/(50-1):T, err);
     
-    [u, err] = script_res_equation_onde(1, 30, 100, 0.5, f, u0, u1);
+    [u, err] = resout_equation_onde(1, 30, 100, 0.5, f, u0, u1);
     trace_solution(u, 30, 100);
     plot(0:L/(30-1):T, err);
     
@@ -82,7 +82,7 @@ if num == 2
     u_0 = @(x)0.1*(1-x);
     u_1 = @(x)0.1*cos(omega_x*sqrt(c)*delta_t)*(1-x);
     
-    [u, err] = script_res_equation_onde(c, Nt, Nx, theta, f, u_0, u_1);
+    [u, err] = resout_equation_onde(c, Nt, Nx, theta, f, u_0, u_1);
     trace_solution(u, Nt, Nx);
     
     

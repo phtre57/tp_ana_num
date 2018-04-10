@@ -7,8 +7,9 @@ function J=calcul_valeur_integral(u_c, u_ex)
         uc_moins_uex(i) = abs(u_c(x_capteur, i) - u_ex(x_capteur, i))^2;
     end
     
-    h = T/(Nt-1);
+    h = T/Nt;
     
+    J = 0;
     for i=1:Nt
        if i == 1
            J = J + uc_moins_uex(i);

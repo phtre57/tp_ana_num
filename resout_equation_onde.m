@@ -10,6 +10,9 @@ function [u, erreur] = resout_equation_onde(c, Nt, Nx, theta, f, u0, u1tilde)
     delta_x = L/(Nx-1);
     delta_t = T/(Nt-1);
     
+    delta_x_p = L/Nx;
+    delta_t_p = T/Nt;
+    
     x_inter = 0:delta_x:L;
     t_inter = 0:delta_t:T;
     
@@ -21,11 +24,11 @@ function [u, erreur] = resout_equation_onde(c, Nt, Nx, theta, f, u0, u1tilde)
     u_0 = u(:,1);
     u_1 = u(:,2);
     
-    coef = c*(delta_t)^2/(delta_x)^2;
+    coef = c*((delta_t_p)^2/(delta_x_p)^2);
     
-    A = toeplitz([1+2*theta*coef,-theta*coef, zeros(1, Nx-2)]);
-    B0 = toeplitz([2 - 2*(1-2*theta)*coef, (1-2*theta)*coef, zeros(1, Nx-2)]);
-    B1 = toeplitz([-1-2*theta*coef, theta*c , zeros(1, Nx-2)]);
+    A = toeplitz([1+2*theta*coef -theta*coef zeros(1, Nx-2)]);
+    B0 = toeplitz([2 - 2*(1-2*theta)*coef (1-2*theta)*coef zeros(1, Nx-2)]);
+    B1 = toeplitz([-1-2*theta*coef theta*c  zeros(1, Nx-2)]);
     
     A(1,1) = 1;
     A(1,2) = 0;
@@ -33,13 +36,12 @@ function [u, erreur] = resout_equation_onde(c, Nt, Nx, theta, f, u0, u1tilde)
     A(Nx, Nx) = 1;
     A(Nx, Nx-1) = 0;
     
-    
     for i = 3:Nt
-        b_n = B1*u_0 + B0*u_1;
-        b_n(1) = f(i);
+        b_n = B0*u_1 + B1*u_0;
+        b_n(1) = f(t_inter(i));
         b_n(Nx) = 0;
         
-        u_n_plus_1 = linsolve(A, b_n);
+        u_n_plus_1 = A\b_n;
         u_0 = u_1;
         u_1 = u_n_plus_1;
         
