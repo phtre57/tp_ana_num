@@ -1,6 +1,6 @@
 global T L omega_x alpha coeferr n;
 
-num = 0;
+num = 2;
 
 %section 2c)
 if num == 0
@@ -29,6 +29,7 @@ if num == 0
 
     trace_comparaison_mode(u, Nt, Nx, u_exacte);
     t_inter = 0:L/(Nt-1):T;
+    figure;
     plot(t_inter, err);
 end
 
@@ -78,9 +79,9 @@ if num == 2
     c = 10;
     delta_t = T/(Nt-1);
     t_inter = 0:delta_t:T;
-    f = @(t)0.1*cos(omega_x*sqrt(c)*t);
+    f = @(t)0.1*cos(omega_x*sqrt(10)*t);
     u_0 = @(x)0.1*(1-x);
-    u_1 = @(x)0.1*cos(omega_x*sqrt(c)*delta_t)*(1-x);
+    u_1 = @(x)0.1*cos(omega_x*sqrt(10)*delta_t)*(1-x);
     
     [u, err] = resout_equation_onde(c, Nt, Nx, theta, f, u_0, u_1);
     trace_solution(u, Nt, Nx);

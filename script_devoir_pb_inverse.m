@@ -2,7 +2,7 @@ global omega_x L T theta Nt Nx coeferr;
 
 coeferr = 1;
 L = 1;
-T = 5;
+T = 5; %pour avoir un algo stable
 omega_x = 5;
 theta = 0.5;
 Nt = 500;
