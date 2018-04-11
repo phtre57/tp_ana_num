@@ -1,5 +1,5 @@
-function [cfinal, ufinal, tab_err] = pb_inverse_secante(u_ex, nmax, precision, c0, c1, f, u0, u1)
-    global Nt Nx coeferr theta;
+function [cfinal, ufinal, tab_err] = pb_inv_secante(u_ex, nmax, precision, c0, c1, f, u0, u1)
+    global Nt Nx coeferr theta c;
     coeferr = 1;
     
     x_n = c1;
@@ -16,6 +16,7 @@ function [cfinal, ufinal, tab_err] = pb_inverse_secante(u_ex, nmax, precision, c
         temp = x_n;
         x_n = x_n - (j_uc_n*(x_n - x_n_moins_1)/(j_uc_n - j_uc_n_moins_1));
         x_n_moins_1 = temp;
+        tab_err(increment) = abs(c - x_n);
         
         if (abs(x_n - x_n_moins_1)/abs(x_n) + eps) < precision
             cfinal = x_n;
@@ -25,12 +26,12 @@ function [cfinal, ufinal, tab_err] = pb_inverse_secante(u_ex, nmax, precision, c
         
         %divergence
         if (increment > nmax)
+            cfinal = x_n;
             stop = 1;
         end
         
         increment = increment + 1;
     end
     
-    tab_err = 0;
 
 end
