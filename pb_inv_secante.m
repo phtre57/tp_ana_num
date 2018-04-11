@@ -18,7 +18,7 @@ function [cfinal, ufinal, tab_err] = pb_inv_secante(u_ex, nmax, precision, c0, c
         x_n_moins_1 = temp;
         tab_err(increment) = abs(c - x_n);
         
-        if (abs(x_n - x_n_moins_1)/abs(x_n) + eps) < precision
+        if (abs(x_n - x_n_moins_1)/abs(x_n) + eps(1)) < precision
             cfinal = x_n;
             [ufinal, err2] = resout_equation_onde(x_n, Nt, Nx, theta, f, u0, u1);
             stop = 1;

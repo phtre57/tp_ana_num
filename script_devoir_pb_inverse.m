@@ -1,6 +1,6 @@
 global omega_x L T theta Nt Nx coeferr c;
 
-num = 1;
+num = 2;
 
 coeferr = 1;
 L = 1;
@@ -50,6 +50,66 @@ if num == 1
     figure;
     plot(1:length(err1), err1, '*');
     
+    
+end
+
+%section 2.4
+if num == 2
+    cini = 3;
+    
+    vois = 20;
+    nmax = 100;
+    number_of_execution = 10;
+    temp_c_fin = zeros(number_of_execution,5);
+    [u, err] = resout_equation_onde(c, Nt, Nx, theta, f, u0, u1);
+    
+    for i=1:10
+        [cfinal, iter] = pb_inv_recuit_simule(u, cini, vois, nmax, f, u0, u1);
+        temp_c_fin(i,1) = cfinal;
+    end
+    
+    
+    
+    cini = 15;
+    for i=1:10
+        [cfinal, iter] = pb_inv_recuit_simule(u, cini, vois, nmax, f, u0, u1);
+        temp_c_fin(i,2) = cfinal;
+    end
+    
+    
+    
+    cini = 17;
+    for i=1:10
+        [cfinal, iter] = pb_inv_recuit_simule(u, cini, vois, nmax, f, u0, u1);
+        temp_c_fin(i,3) = cfinal;
+    end
+    
+    
+    
+    cini = 21;
+    for i=1:10
+        [cfinal, iter] = pb_inv_recuit_simule(u, cini, vois, nmax, f, u0, u1);
+        temp_c_fin(i,4) = cfinal;
+    end
+    
+    
+    
+    cini = 23;
+    for i=1:10
+        [cfinal, iter] = pb_inv_recuit_simule(u, cini, vois, nmax, f, u0, u1);
+        temp_c_fin(i,5) = cfinal;
+    end
+    
+    
+    plot(1:number_of_execution, temp_c_fin(:,1), '*');
+    figure;
+    plot(1:number_of_execution, temp_c_fin(:,2), '*');
+    figure;
+    plot(1:number_of_execution, temp_c_fin(:,3), '*');
+    figure;
+    plot(1:number_of_execution, temp_c_fin(:,4), '*');
+    figure;
+    plot(1:number_of_execution, temp_c_fin(:,5), '*');
     
 end
 
