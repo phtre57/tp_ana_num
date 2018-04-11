@@ -1,11 +1,13 @@
 global omega_x L T theta Nt Nx coeferr;
 
+num = 1;
+
 coeferr = 1;
 L = 1;
-T = 5; %pour avoir un algo stable
+T = 1; 
 omega_x = 5;
 theta = 0.5;
-Nt = 500;
+Nt = 100; %pour avoir un algo stable
 Nx = 100;
 delta_t = T/Nt;
 
@@ -13,10 +15,34 @@ f = @(t)0.1*cos(omega_x*t);
 u0 = @(x)0.1*(1-x);
 u1 = @(x)0.1*cos(omega_x*delta_t)*(1-x);
 
+%section 2.1
+if num == 0
+    
+    [u, err] = resout_equation_onde(10, Nt, Nx, theta, f, u0, u1);
+    %trace_solution(u, Nt, Nx);
 
-[u, err] = resout_equation_onde(10, Nt, Nx, theta, f, u0, u1);
-%trace_solution(u, Nt, Nx);
+    c_intervale = 7:0.5:30;
+    trace_fonction_objectif(u, c_intervale, f, u0, u1);
 
-c_intervale = 7:0.5:30;
-trace_fonction_objectif(u, c_intervale, f, u0, u1);
+end
+
+%section 2.2
+if num == 1
+    [u, err] = resout_equation_onde(10, Nt, Nx, theta, f, u0, u1);
+    
+    [c_fin, u_fin, err1] = pb_inverse_secante(u, 50, 0.0000000001, 3, 3.1, f, u0, u1);
+    disp(c_fin);
+    trace_solution(u_fin, Nt, Nx);
+    
+    [c_fin, u_fin, err1] = pb_inverse_secante(u, 50, 0.0000000001, 15, 15.1, f, u0, u1);
+    disp(c_fin);
+    trace_solution(u_fin, Nt, Nx);
+    
+    %on utilise 25 et 25.1 pour mieux montrer la divergence puisque on
+    %utilise nt = 100 ce qui change les donnees
+    [c_fin, u_fin, err1] = pb_inverse_secante(u, 50, 0.0000000001, 25, 25.1, f, u0, u1);
+    disp(c_fin);
+    
+    
+end
 

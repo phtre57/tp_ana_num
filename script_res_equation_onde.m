@@ -66,7 +66,7 @@ end
 
 %section 2f)
 if num == 2
-    n = 2;
+    n = 4;
     T = 5;
     L = 1;
     alpha = 1;
@@ -76,7 +76,7 @@ if num == 2
     Nt = 500;
     Nx = 100;
     theta = 0.5;
-    c = 10;
+    c = 5;
     delta_t = T/(Nt-1);
     t_inter = 0:delta_t:T;
     f = @(t)0.1*cos(omega_x*sqrt(10)*t);
