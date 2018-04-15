@@ -1,6 +1,6 @@
 global omega_x L T theta Nt Nx coeferr c;
 
-num = 2;
+num = 1;
 
 coeferr = 1;
 L = 1;
